@@ -329,6 +329,49 @@ function islandora_get_parents_from_rels_ext(AbstractObject $object) {
 }
 
 /**
+ * Gets any objects that the given object has a hasPart relationship with 
+ *
+ * This function gets its info from the RELS-EXT directly rather than through an
+ * risearch.
+ *
+ * @param AbstractObject $object
+ *   The object whose parents will be returned.
+ *
+ * @return array
+ *   An array of FedoraObject's that the given object has a
+ *   hasPart relationship with.
+ */
+function islandora_get_haspart_from_rels_ext(AbstractObject $object) {
+  $part = $object->relationships->get(FEDORA_RELS_EXT_URI, 'hasPart');
+  $map = function($o) {
+    return islandora_object_load($o['object']['value']);
+  };
+  $parts = array_map($map, $part);
+  return array_filter($parts);
+}
+
+/**
+ * Gets any objects that the given object has a isPartOf relationship with 
+ *
+ * This function gets its info from the RELS-EXT directly rather than through an
+ * risearch.
+ *
+ * @param AbstractObject $object
+ *   The object whose parents will be returned.
+ *
+ * @return array
+ *   An array of FedoraObject's that the given object has a
+ *   hasPart relationship with.
+ */
+function islandora_get_ispartof_from_rels_ext(AbstractObject $object) {
+  $part = $object->relationships->get(FEDORA_RELS_EXT_URI, 'isPartOf');
+  $map = function($o) {
+    return islandora_object_load($o['object']['value']);
+  };
+  $parts = array_map($map, $part);
+  return array_filter($parts);
+}
+/**
  * Gets the datastreams requirments that are missing.
  *
  * @param AbstractObject $object
@@ -339,6 +382,7 @@ function islandora_get_parents_from_rels_ext(AbstractObject $object) {
  *   The DS-COMPOSITE-MODEL defined datastreams that are required for the given
  *   object, but not already present.
  */
+
 function islandora_get_missing_datastreams_requirements(AbstractObject $object) {
   module_load_include('inc', 'islandora', 'includes/utilities');
   $datastreams = islandora_get_datastreams_requirements($object);
