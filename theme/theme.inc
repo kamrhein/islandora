@@ -119,6 +119,8 @@ function islandora_preprocess_islandora_default(&$variables) {
   module_load_include('inc', 'islandora', 'includes/metadata');
 
   $variables['parent_collections'] = islandora_get_parents_from_rels_ext($islandora_object);
+  $variables['hasPart_relations'] = islandora_get_haspart_from_rels_ext($islandora_object);
+  $variables['isPartOf_relations'] = islandora_get_ispartof_from_rels_ext($islandora_object);
 
   $datastreams = array();
   foreach ($islandora_object as $ds) {

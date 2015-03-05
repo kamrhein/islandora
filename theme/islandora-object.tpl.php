@@ -106,3 +106,23 @@
     </ul>
   </div>
 <?php endif; ?>
+<?php if ($hasPart_relations): ?>
+  <div>
+    <h2><?php print t('Has Parts'); ?></h2>
+    <ul>
+      <?php foreach ($hasPart_relations as $haspart): ?>
+        <li><?php print l($haspart->label, "islandora/object/{$haspart->id}"); ?></li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+<?php endif; ?>
+<?php if ($isPartOf_relations): ?>
+  <div>
+    <h2><?php print t('Is Part Of'); ?></h2>
+    <ul>
+      <?php foreach ($isPartOf_relations as $ispart): ?>
+        <li><?php print l($ispart->label, "islandora/object/{$ispart->id}"); ?></li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+<?php endif; ?>
